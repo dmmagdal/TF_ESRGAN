@@ -219,8 +219,8 @@ def create_generator(inputs, block_count=23, upscale_times=2):
 	for i in range(upscale_times):
 		x = layers.Conv2D(
 			filters=256, kernel_size=(3, 3), padding="same",
-		)
-		x = tf.depth_to_space(x, block_size=2)
+		)(x)
+		x = tf.nn.depth_to_space(x, block_size=2)
 		x = layers.LeakyReLU(alpha=0.2)(x)
 
 	x = layers.Conv2D(

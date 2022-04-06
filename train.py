@@ -21,7 +21,7 @@ from matplotlib import pyplot as plt
 
 class ESRGAN(keras.Model):
 	def __init__(self, generator, discriminator, vgg, **kwargs):
-		super(SRGAN, self).__init__(**kwargs)
+		super(ESRGAN, self).__init__(**kwargs)
 
 		# Models.
 		self.discriminator = discriminator
@@ -43,7 +43,7 @@ class ESRGAN(keras.Model):
 
 
 	def compile(self, gen_opt, disc_opt):
-		super(SRGAN, self).compile()
+		super(ESRGAN, self).compile()
 		self.disc_optimizer = disc_opt
 		self.gen_optimizer = gen_opt
 		self.d_loss_metric = keras.metrics.Mean(name="d_loss")
@@ -187,7 +187,7 @@ def main():
 
 	# Initialize models (generator, discriminator, and vgg).
 	gen_opt = keras.optimizers.Adam(1e-4, beta_1=0.5, beta_2=0.99)
-	generator = create_generator(lr_inputs, num_res_blocks=16)
+	generator = create_generator(lr_inputs)
 	generator.summary()
 
 	disc_opt = keras.optimizers.Adam(1e-4, beta_1=0.5, beta_2=0.99)
@@ -198,8 +198,8 @@ def main():
 	vgg.trainable = False
 	vgg.summary()
 
-	# Initialize SRGAN model.
-	gan = SRGAN(generator, discriminator, vgg)
+	# Initialize ESRGAN model.
+	gan = ESRGAN(generator, discriminator, vgg)
 	gan.compile(gen_opt, disc_opt)
 	save_callback = GANMonitor(valid_data)
 
