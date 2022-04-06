@@ -12,9 +12,9 @@ from tensorflow import keras
 from tensorflow.keras import Model, layers
 from tensorflow.keras.models import load_model
 import tensorflow_datasets as tfds
-from srgan import RRDBlock, DenseBlock
-from srgan import create_generator, create_discriminator
-from srgan import build_vgg19
+from esrgan import RRDBlock, DenseBlock
+from esrgan import create_generator, create_discriminator
+from esrgan import build_vgg19
 from utils import resize_images, scale_images, save_images
 from matplotlib import pyplot as plt
 

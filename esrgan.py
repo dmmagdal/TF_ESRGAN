@@ -232,3 +232,17 @@ def create_generator(inputs, block_count=23, upscale_times=2):
 	)(x)
 	outputs = tf.identity(x)
 	return Model(inputs, outputs, name="generator")
+
+
+# VGG19.
+def build_vgg19(hr_shape):
+	vgg = VGG19(
+		weights="imagenet", include_top=False, input_shape=hr_shape
+	)
+	block3_conv4 = 10
+	block5_conv4 = 20
+
+	return Model(
+		inputs=vgg.inputs, outputs=vgg.layers[block5_conv4].output, 
+		name="vgg19"
+	)
