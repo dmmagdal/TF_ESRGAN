@@ -20,7 +20,6 @@ import tensorflow_datasets as tfds
 
 
 class DenseBlock(layers.Layer):
-	#def __init__(self, filters=64, kernel_size=3, strides=1, **kwargs):
 	def __init__(self, filters=64, kernel_size=(3, 3), **kwargs):
 		super().__init__()
 
@@ -107,6 +106,11 @@ class DenseBlock(layers.Layer):
 		return outs
 
 
+	def get_config(self):
+		config = super(DenseBlock, self).get_config()
+		return config
+
+
 class RRDBlock(layers.Layer):
 	def __init__(self, **kwargs):
 		super().__init__()
@@ -127,12 +131,9 @@ class RRDBlock(layers.Layer):
 		return outs
 
 
-'''
-def generator(inputs):
-	x = layers.Conv2D(
-		filters=64, kernel_size=(3, 3), padding="same"
-	)(inputs)
-'''
+	def get_config(self):
+		config = super(RRDBlock, self).get_config()
+		return config
 
 
 def create_discriminator(inputs):
@@ -198,7 +199,7 @@ def create_discriminator(inputs):
 	x = layers.Flatten()(x)
 	x = layers.Dense(100)(x)
 	x = layers.LeakyReLU()(x)
-	outputs = layers.Dense(1)(x)
+	outputs = layers.Dense(1, activation="sigmoid")(x)
 	return Model(inputs, outputs, name="discriminator")
 
 
