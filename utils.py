@@ -9,7 +9,6 @@
 import random
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras.applications import VGG19
 from matplotlib import pyplot as plt
 
 
@@ -70,7 +69,7 @@ def save_images(valid_data, generator, e, offset_by_one=False):
 	plt.imshow(tar_img[0, :, :, :])
 	if offset_by_one:
 		e += 1
-	plt.savefig(f"SRGAN_Generator_Sample{e}.png")
+	plt.savefig(f"ESRGAN_Generator_Sample{e}.png")
 	plt.close()
 
 
