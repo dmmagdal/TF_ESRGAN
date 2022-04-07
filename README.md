@@ -6,8 +6,6 @@ Description: This repository takes from multiple examples of the ESRGAN for imag
 
  > Install the required modules from requirements.txt with `pip install -r requirements.txt`. The best way to train ESRGAN from scratch is to use the training loop defined in `train.py`. Simply run `python train.py` and it will download the dataset (div2k/bicubic_x4 from tensorflow datasets) and begin training the neural network. You can go inside and alter the training hyperparameters (ie `batch_size`, `epochs`, etc), making this repo very easy to use for training the model from scratch.
 
- > **Note:** Do NOT use the training loop inn esrgan.py. That loop has not been tested and it most likely won't even run in its current state.
-
 
 ### Sources:
 
