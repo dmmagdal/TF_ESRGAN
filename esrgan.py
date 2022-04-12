@@ -22,32 +22,35 @@ import tensorflow_datasets as tfds
 class DenseBlock(layers.Layer):
 	def __init__(self, filters=64, kernel_size=(3, 3), **kwargs):
 		super().__init__()
+		self.filters = filters
+		self.kernel_size = kernel_size
+
 		self.conv1 = layers.Conv2D(
-			filters, kernel_size=(3, 3), padding="same"
+			self.filters, kernel_size=self.kernel_size, padding="same"
 		)
 		self.leakyReLU1 = layers.LeakyReLU(alpha=0.2)
 		self.concat1 = layers.Concatenate()
 
 		self.conv2 = layers.Conv2D(
-			filters, kernel_size=(3, 3), padding="same"
+			self.filters, kernel_size=self.kernel_size, padding="same"
 		)
 		self.leakyReLU2 = layers.LeakyReLU(alpha=0.2)
 		self.concat2 = layers.Concatenate()
 
 		self.conv3 = layers.Conv2D(
-			filters, kernel_size=(3, 3), padding="same"
+			self.filters, kernel_size=self.kernel_size, padding="same"
 		)
 		self.leakyReLU3 = layers.LeakyReLU(alpha=0.2)
 		self.concat3 = layers.Concatenate()
 
 		self.conv4 = layers.Conv2D(
-			filters, kernel_size=(3, 3), padding="same"
+			self.filters, kernel_size=self.kernel_size, padding="same"
 		)
 		self.leakyReLU4 = layers.LeakyReLU(alpha=0.2)
 		self.concat4 = layers.Concatenate()
 
 		self.conv5 = layers.Conv2D(
-			filters, kernel_size=(3, 3), padding="same"
+			self.filters, kernel_size=self.kernel_size, padding="same"
 		)
 		self.lambdaLayer = layers.Lambda(lambda x:x * 0.2)
 		self.add = layers.Add()
@@ -78,13 +81,16 @@ class DenseBlock(layers.Layer):
 
 	def get_config(self):
 		config = super(DenseBlock, self).get_config()
+		config.update({
+			"filters": self.filters,
+			"kernel_size": self.kernel_size,
+		})
 		return config
 
 
 class RRDBlock(layers.Layer):
 	def __init__(self, **kwargs):
 		super().__init__()
-
 		self.block1 = DenseBlock()
 		self.block2 = DenseBlock()
 		self.block3 = DenseBlock()
